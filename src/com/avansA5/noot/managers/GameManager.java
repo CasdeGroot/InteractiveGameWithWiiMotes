@@ -19,5 +19,4 @@ public class GameManager
         tickCount++;
         SceneManager.update();
     }
-
 }
