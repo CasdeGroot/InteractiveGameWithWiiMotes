@@ -5,5 +5,5 @@ package com.avansA5.noot.interfaces;
  */
 interface Hittable
 {
-    void onHit(Hittable sender);
+    void onHit(Hittable sender); //damaging
 }
