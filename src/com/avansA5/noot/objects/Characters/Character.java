@@ -1,4 +1,4 @@
-package com.avansA5.noot.objects.Characters;
+package com.avansA5.noot.objects.characters;
 
 import com.avansA5.noot.interfaces.*;
 import com.avansA5.noot.objects.GameObject;
@@ -12,6 +12,6 @@ public abstract class Character extends GameObject implements Shootable, Hittabl
     BufferedImage sprite;
     public Character()
     {
-        ControlManager.
+
     }
 }
