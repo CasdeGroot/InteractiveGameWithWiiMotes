@@ -1,6 +1,7 @@
 package com.avansA5.noot.managers;
 
 
+import com.avansA5.noot.scenes.GameScene;
 import com.avansA5.noot.scenes.Scene;
 import com.avansA5.noot.util.Log;
 
@@ -15,8 +16,8 @@ public class SceneManager
     public static void start()
     {
         Log.log("Starting SceneManager");
-
-        setScene("");
+        scenes.put("GameScene", new GameScene());
+        setScene("GameScene");
     }
 
     static void setScene(String name)

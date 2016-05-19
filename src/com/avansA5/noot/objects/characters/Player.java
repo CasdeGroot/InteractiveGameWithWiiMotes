@@ -6,7 +6,10 @@ import wiiusej.wiiusejevents.physicalevents.*;
 import wiiusej.wiiusejevents.utils.WiimoteListener;
 import wiiusej.wiiusejevents.wiiuseapievents.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Cas on 19/05/2016.
@@ -19,10 +22,16 @@ public class Player extends Character implements WiimoteListener
     {
         ControlManager.addWiimoteListener(this, player);
         playerId = player;
+
+        try {
+            sprite = ImageIO.read(new File("res/Dragon.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public void draw(Graphics2D g2) {
-
+        g2.drawImage(sprite, 20, 20, null);
     }
 
     @Override
