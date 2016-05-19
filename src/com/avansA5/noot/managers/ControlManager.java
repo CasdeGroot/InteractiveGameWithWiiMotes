@@ -21,13 +21,14 @@ public class ControlManager
         {
             Wiimote wiimote = wiimotes.get(i);
             if(i == 0)
-            {wiimote.setLeds(true, false, false, false);}
+                wiimote.setLeds(true, false, false, false);
             if(i == 1)
-            {wiimote.setLeds(false, true, false, false);}
+                wiimote.setLeds(false, true, false, false);
             if(i == 2)
-            {wiimote.setLeds(false, false, true, false);}
+                wiimote.setLeds(false, false, true, false);
             if(i == 3)
-            {wiimote.setLeds(false, false, false, true);}
+                wiimote.setLeds(false, false, false, true);
+
             wiimote.activateMotionSensing();
         }
     }
