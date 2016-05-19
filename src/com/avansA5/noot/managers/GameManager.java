@@ -7,6 +7,7 @@ import javax.swing.*;
 
 public class GameManager
 {
+    private static int tickCount = 0;
     public static void start()
     {
         Log.log("Starting GameManager");
@@ -15,6 +16,7 @@ public class GameManager
 
     static void update()
     {
+        tickCount++;
         SceneManager.update();
     }
 

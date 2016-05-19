@@ -33,7 +33,7 @@ public class ControlManager
         }
     }
 
-    public void addWiimoteListener(WiimoteListener wiimoteListener, int i)
+    public static void addWiimoteListener(WiimoteListener wiimoteListener, int i)
     {
         Wiimote wiimote = wiimotes.get(i);
         wiimote.addWiiMoteEventListeners(wiimoteListener);
