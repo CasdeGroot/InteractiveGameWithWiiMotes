@@ -7,7 +7,7 @@ import com.avansA5.noot.util.Log;
 import java.awt.*;
 import java.util.HashMap;
 
-class SceneManager
+public class SceneManager
 {
     static Scene currentScene;
     static HashMap<String, Scene> scenes = new HashMap<>();
