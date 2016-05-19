@@ -2,10 +2,7 @@ package com.avansA5.noot.objects.characters;
 
 import com.avansA5.noot.interfaces.Hittable;
 import com.avansA5.noot.managers.ControlManager;
-import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
-import wiiusej.wiiusejevents.physicalevents.IREvent;
-import wiiusej.wiiusejevents.physicalevents.MotionSensingEvent;
-import wiiusej.wiiusejevents.physicalevents.WiimoteButtonsEvent;
+import wiiusej.wiiusejevents.physicalevents.*;
 import wiiusej.wiiusejevents.utils.WiimoteListener;
 import wiiusej.wiiusejevents.wiiuseapievents.*;
 
@@ -59,7 +56,21 @@ public class Player extends Character implements WiimoteListener
     @Override
     public void onExpansionEvent(ExpansionEvent expansionEvent)
     {
+        NunchukEvent n;
+        n = (NunchukEvent)expansionEvent;
+        if(n.isThereNunchukJoystickEvent());
+        {
+            double angle = n.getNunchukJoystickEvent().getAngle();
+            double magnitude = n.getNunchukJoystickEvent().getMagnitude();
+            double deg = Math.toRadians(angle);
 
+//            double _x = 100 * magnitude * Math.sin(deg);
+//            double _y = 100 * magnitude * Math.cos(deg);
+//
+//            double x = _x;
+//            double y = _y*-1;
+
+        }
     }
 
     @Override
