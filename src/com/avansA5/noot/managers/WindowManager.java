@@ -7,15 +7,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 
 public class WindowManager extends JPanel
 {
     public static WindowManager panel;
+    public static JFrame frame;
+
+    static Timer repaintTimer;
 
     public WindowManager()
     {
 
-        new Timer(1000 / 60, e -> repaint()).start();
+        repaintTimer = new Timer(1000 / 60, e -> repaint());
+        repaintTimer.start();
         addMouseListener(new MouseListener()
         {
             @Override
@@ -60,6 +65,8 @@ public class WindowManager extends JPanel
         frame.setMinimumSize(new Dimension(400, 600));
 
         frame.setVisible(true);
+
+        WindowManager.frame = frame;
 
         SceneManager.start();
 

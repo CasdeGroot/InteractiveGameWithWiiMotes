@@ -29,6 +29,7 @@ public class Player extends Character implements WiimoteListener
             e.printStackTrace();
         }
     }
+
     @Override
     public void draw(Graphics2D g2) {
         g2.drawImage(sprite, px, py, null);
