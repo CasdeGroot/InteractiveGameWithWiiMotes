@@ -5,9 +5,7 @@ import com.avansA5.noot.util.Log;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class WindowManager extends JPanel
 {
@@ -53,6 +51,28 @@ public class WindowManager extends JPanel
 
             }
         });
+
+        addKeyListener(new KeyListener()
+        {
+            @Override
+            public void keyTyped(KeyEvent keyEvent)
+            {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent)
+            {
+                if(keyEvent.getKeyCode()==KeyEvent.VK_ESCAPE)
+                    System.exit(0);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent)
+            {
+
+            }
+        });
     }
 
     public static void start()
@@ -63,8 +83,14 @@ public class WindowManager extends JPanel
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(800, 800));
+
+        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //frame.setUndecorated(true);
+
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+
 
         panel.setBackground(Color.BLACK);
 
