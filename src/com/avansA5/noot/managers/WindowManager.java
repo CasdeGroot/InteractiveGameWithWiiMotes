@@ -59,16 +59,23 @@ public class WindowManager extends JPanel
     {
         Log.log("Starting WindowManager");
 
-        panel = new WindowManager();
 
         JFrame frame = new JFrame(Program.TITLE);
+      //  frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
+
+        panel = new WindowManager();
         frame.setContentPane(panel);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(800, 800));
+        frame.setVisible(true);
 
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //frame.setUndecorated(true);
+
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height-1));
+
+     //   frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 
         frame.addKeyListener(new KeyListener()
         {
@@ -90,8 +97,6 @@ public class WindowManager extends JPanel
             {
             }
         });
-
-        frame.setVisible(true);
 
 
         WindowManager.frame = frame;

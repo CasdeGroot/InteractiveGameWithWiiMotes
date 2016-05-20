@@ -26,9 +26,7 @@ public class ControlManager
 
         wiimotes = new ArrayList(Arrays.asList(_wiimotes));
 
-
-
-        for(int i = 0; i > wiimotes.size(); i++)
+        for(int i = 0; i < wiimotes.size(); i++)
         {
             Wiimote wiimote = wiimotes.get(i);
             if(i == 0)
@@ -40,7 +38,10 @@ public class ControlManager
             if(i == 3)
                 wiimote.setLeds(false, false, false, true);
 
-            wiimote.activateMotionSensing();
+            wiimote.activateIRTRacking();
+            wiimote.setSensorBarBelowScreen();
+            wiimote.setIrSensitivity(0);
+            wiimote.setIrSensitivity(3);
         }
     }
 

@@ -13,8 +13,18 @@ import java.awt.*;
 public class GameScene extends Scene {
     @Override
     public void load() {
-        sprites.add(new Player(0));
-        sprites.add(new CrossHair(0));
+        Player player1 = new Player(0);
+        CrossHair crossHair1 = new CrossHair(0);
+        player1.setCrossHair(crossHair1);
+
+//        Player player2 = new Player(1);
+//        CrossHair crossHair2 = new CrossHair(1);
+//        player2.setCrossHair(crossHair2);
+
+        sprites.add(player1);
+        sprites.add(crossHair1);
+//        sprites.add(player2);
+//        sprites.add(crossHair2);
     }
 
     @Override

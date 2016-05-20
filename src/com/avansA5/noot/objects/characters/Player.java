@@ -2,6 +2,7 @@ package com.avansA5.noot.objects.characters;
 
 import com.avansA5.noot.interfaces.Hittable;
 import com.avansA5.noot.managers.ControlManager;
+import com.avansA5.noot.objects.CrossHair;
 import com.avansA5.noot.types.Vector2D;
 import com.avansA5.noot.util.Log;
 import wiiusej.wiiusejevents.physicalevents.*;
@@ -19,6 +20,16 @@ import java.io.IOException;
 public class Player extends Character implements WiimoteListener
 {
     int playerId;
+
+    public CrossHair getCrossHair() {
+        return crossHair;
+    }
+
+    public void setCrossHair(CrossHair crossHair) {
+        this.crossHair = crossHair;
+    }
+
+    CrossHair crossHair;
     
     public Player(int player)
     {
@@ -32,6 +43,8 @@ public class Player extends Character implements WiimoteListener
             e.printStackTrace();
         }
     }
+
+
 
     @Override
     public void draw(Graphics2D g2) {
@@ -60,11 +73,14 @@ public class Player extends Character implements WiimoteListener
     @Override
     public void onIrEvent(IREvent irEvent)
     {
-
+        if(crossHair==null)
+            return;
+        crossHair.onIrEvent(irEvent);
     }
 
     @Override
-    public void onMotionSensingEvent(MotionSensingEvent motionSensingEvent) {
+    public void onMotionSensingEvent(MotionSensingEvent motionSensingEvent)
+    {
 
     }
 
