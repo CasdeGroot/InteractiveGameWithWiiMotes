@@ -2,6 +2,7 @@ package com.avansA5.noot.objects.characters;
 
 import com.avansA5.noot.interfaces.Hittable;
 import com.avansA5.noot.managers.ControlManager;
+import com.avansA5.noot.types.Vector2D;
 import wiiusej.wiiusejevents.physicalevents.*;
 import wiiusej.wiiusejevents.utils.WiimoteListener;
 import wiiusej.wiiusejevents.wiiuseapievents.*;
@@ -16,7 +17,7 @@ import java.io.IOException;
  */
 public class Player extends Character implements WiimoteListener
 {
-    int playerId, px, py;
+    int playerId;
 
     public Player(int player)
     {
@@ -25,6 +26,7 @@ public class Player extends Character implements WiimoteListener
 
         try {
             sprite = ImageIO.read(new File("res/Dragon.png"));
+            vector = new Vector2D(20, 20, sprite.getWidth(), sprite.getHeight());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,7 +34,7 @@ public class Player extends Character implements WiimoteListener
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(sprite, px, py, null);
+        g2.drawImage(sprite, (int)vector.getX(), (int)vector.getY(), null);
     }
 
     @Override
@@ -44,7 +46,8 @@ public class Player extends Character implements WiimoteListener
     @Override
     public void update()
     {
-
+        vector.setX(vector.getX()+vector.getSpeedX());
+        vector.setY(vector.getY()+vector.getSpeedY());
     }
 
     @Override
@@ -75,8 +78,11 @@ public class Player extends Character implements WiimoteListener
             double magnitude = n.getNunchukJoystickEvent().getMagnitude();
             double deg = Math.toRadians(angle);
 
-//            double _x = 100 * magnitude * Math.sin(deg);
-//            double _y = 100 * magnitude * Math.cos(deg);
+            double _x = 100 * magnitude * Math.sin(deg);
+            double _y = 100 * magnitude * Math.cos(deg);
+
+            vector.setSpeedX(_x);
+            vector.setSpeedY(_y);
 //
 //            double x = _x;
 //            double y = _y*-1;
