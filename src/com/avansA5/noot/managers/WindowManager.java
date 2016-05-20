@@ -62,9 +62,11 @@ public class WindowManager extends JPanel
         JFrame frame = new JFrame(Program.TITLE);
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(400, 600));
-
+        frame.setMinimumSize(new Dimension(800, 800));
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        panel.setBackground(Color.BLACK);
 
         WindowManager.frame = frame;
 

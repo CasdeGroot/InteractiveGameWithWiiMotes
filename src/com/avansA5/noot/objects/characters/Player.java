@@ -3,6 +3,7 @@ package com.avansA5.noot.objects.characters;
 import com.avansA5.noot.interfaces.Hittable;
 import com.avansA5.noot.managers.ControlManager;
 import com.avansA5.noot.types.Vector2D;
+import com.avansA5.noot.util.Log;
 import wiiusej.wiiusejevents.physicalevents.*;
 import wiiusej.wiiusejevents.utils.WiimoteListener;
 import wiiusej.wiiusejevents.wiiuseapievents.*;
@@ -47,7 +48,7 @@ public class Player extends Character implements WiimoteListener
     public void update()
     {
         vector.setX(vector.getX()+vector.getSpeedX());
-        vector.setY(vector.getY()+vector.getSpeedY());
+        vector.setY(vector.getY()-vector.getSpeedY());
     }
 
     @Override
@@ -75,17 +76,17 @@ public class Player extends Character implements WiimoteListener
         if(n.isThereNunchukJoystickEvent());
         {
             double angle = n.getNunchukJoystickEvent().getAngle();
+            if(Double.isNaN(angle))
+                return;
+
             double magnitude = n.getNunchukJoystickEvent().getMagnitude();
             double deg = Math.toRadians(angle);
 
-            double _x = magnitude * Math.sin(deg);
-            double _y = magnitude * Math.cos(deg);
+            double _x = 8* magnitude * Math.sin(deg);
+            double _y = 8* magnitude * Math.cos(deg);
 
             vector.setSpeedX(_x);
             vector.setSpeedY(_y);
-//
-//            double x = _x;
-//            double y = _y*-1;
 
         }
     }
