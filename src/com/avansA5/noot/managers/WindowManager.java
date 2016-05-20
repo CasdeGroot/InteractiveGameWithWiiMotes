@@ -21,38 +21,6 @@ public class WindowManager extends JPanel
         repaintTimer.start();
         setBackground(Color.black);
 
-        addMouseListener(new MouseListener()
-        {
-            @Override
-            public void mouseClicked(MouseEvent mouseEvent)
-            {
-                SceneManager.onClick(new Point(mouseEvent.getX(), mouseEvent.getY()));
-            }
-
-            @Override
-            public void mousePressed(MouseEvent mouseEvent)
-            {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent)
-            {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent)
-            {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent)
-            {
-
-            }
-        });
     }
 
     public static void start()
@@ -61,7 +29,6 @@ public class WindowManager extends JPanel
 
 
         JFrame frame = new JFrame(Program.TITLE);
-      //  frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
 
         panel = new WindowManager();
@@ -74,27 +41,14 @@ public class WindowManager extends JPanel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height-1));
 
-     //   frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-
-        frame.addKeyListener(new KeyListener()
+        frame.addKeyListener(new KeyAdapter()
         {
-            @Override
-            public void keyTyped(KeyEvent keyEvent)
-            {
-
-            }
-
             @Override
             public void keyPressed(KeyEvent keyEvent)
             {
                 if(keyEvent.getKeyCode()==KeyEvent.VK_ESCAPE)
                     System.exit(0);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent keyEvent)
-            {
             }
         });
 

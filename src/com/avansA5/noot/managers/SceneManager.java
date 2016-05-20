@@ -41,8 +41,4 @@ public class SceneManager
             currentScene.update();
     }
 
-    public static void onClick(Point point)
-    {
-        currentScene.getUiElements().parallelStream().filter(e -> e.getRect().contains(point)).forEach(e -> e.onClick(point));
-    }
 }
