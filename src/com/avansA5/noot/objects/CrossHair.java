@@ -23,8 +23,8 @@ public class CrossHair extends GameObject implements WiimoteListener {
 
     public CrossHair(int player)
     {
-        if(player == 0){imageString = "res/crosshairPlayer1.png";}
-        else {imageString = "res/corsshairPlayer2.png";}
+        if(player == 0){imageString = "res/CrosshairPlayer1.png";}
+        else {imageString = "res/CrosshairPlayer2.png";}
 
         try {
             image = ImageIO.read(new File(imageString));

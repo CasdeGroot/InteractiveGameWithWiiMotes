@@ -19,14 +19,14 @@ import java.io.IOException;
 public class Player extends Character implements WiimoteListener
 {
     int playerId;
-
+    
     public Player(int player)
     {
         ControlManager.addWiimoteListener(this, player);
         playerId = player;
 
         try {
-            sprite = ImageIO.read(new File("res/Dragon.png"));
+            sprite = ImageIO.read(new File("res/DragonRed.png"));
             vector = new Vector2D(20, 20, sprite.getWidth(), sprite.getHeight());
         } catch (IOException e) {
             e.printStackTrace();
