@@ -14,8 +14,4 @@ import java.io.IOException;
 public abstract class Character extends GameObject implements Shootable, Hittable
 {
     BufferedImage sprite;
-    public Character()
-    {
-
-    }
 }

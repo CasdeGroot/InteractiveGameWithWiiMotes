@@ -19,6 +19,8 @@ public class WindowManager extends JPanel
 
         repaintTimer = new Timer(1000 / 60, e -> repaint());
         repaintTimer.start();
+        setBackground(Color.black);
+
         addMouseListener(new MouseListener()
         {
             @Override
@@ -51,8 +53,24 @@ public class WindowManager extends JPanel
 
             }
         });
+    }
 
-        addKeyListener(new KeyListener()
+    public static void start()
+    {
+        Log.log("Starting WindowManager");
+
+        panel = new WindowManager();
+
+        JFrame frame = new JFrame(Program.TITLE);
+        frame.setContentPane(panel);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(800, 800));
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //frame.setUndecorated(true);
+
+        frame.addKeyListener(new KeyListener()
         {
             @Override
             public void keyTyped(KeyEvent keyEvent)
@@ -70,29 +88,11 @@ public class WindowManager extends JPanel
             @Override
             public void keyReleased(KeyEvent keyEvent)
             {
-
             }
         });
-    }
 
-    public static void start()
-    {
-        Log.log("Starting WindowManager");
-        panel = new WindowManager();
-        JFrame frame = new JFrame(Program.TITLE);
-        frame.setContentPane(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(800, 800));
-
-        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //frame.setUndecorated(true);
-
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
-
-        panel.setBackground(Color.BLACK);
 
         WindowManager.frame = frame;
 
