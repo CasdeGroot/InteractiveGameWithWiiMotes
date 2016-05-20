@@ -101,6 +101,18 @@ public class Vector2D
         return x + width;
     }
 
+    @Override
+    public String toString() {
+        return "Vector2D{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                ", speedX=" + speedX +
+                ", speedY=" + speedY +
+                '}';
+    }
+
     public double getY2()
     {
         return y + height;
