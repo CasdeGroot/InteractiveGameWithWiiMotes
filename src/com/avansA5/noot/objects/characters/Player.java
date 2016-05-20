@@ -16,8 +16,8 @@ import java.io.IOException;
  */
 public class Player extends Character implements WiimoteListener
 {
+    int playerId, px, py;
 
-    int playerId;
     public Player(int player)
     {
         ControlManager.addWiimoteListener(this, player);
@@ -31,16 +31,18 @@ public class Player extends Character implements WiimoteListener
     }
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(sprite, 20, 20, null);
+        g2.drawImage(sprite, px, py, null);
     }
 
     @Override
-    public void onHit(Hittable sender) {
+    public void onHit(Hittable sender)
+    {
 
     }
 
     @Override
-    public void update() {
+    public void update()
+    {
 
     }
 
@@ -57,8 +59,7 @@ public class Player extends Character implements WiimoteListener
     }
 
     @Override
-    public void onMotionSensingEvent(MotionSensingEvent motionSensingEvent)
-    {
+    public void onMotionSensingEvent(MotionSensingEvent motionSensingEvent) {
 
     }
 
