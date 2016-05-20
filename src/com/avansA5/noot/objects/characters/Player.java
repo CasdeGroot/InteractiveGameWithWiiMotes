@@ -78,8 +78,8 @@ public class Player extends Character implements WiimoteListener
             double magnitude = n.getNunchukJoystickEvent().getMagnitude();
             double deg = Math.toRadians(angle);
 
-            double _x = 100 * magnitude * Math.sin(deg);
-            double _y = 100 * magnitude * Math.cos(deg);
+            double _x = magnitude * Math.sin(deg);
+            double _y = magnitude * Math.cos(deg);
 
             vector.setSpeedX(_x);
             vector.setSpeedY(_y);
