@@ -1,5 +1,7 @@
 package com.avansA5.noot.managers;
 
+import com.avansA5.noot.Program;
+import com.avansA5.noot.util.Log;
 import wiiusej.WiiUseApiManager;
 import wiiusej.Wiimote;
 import wiiusej.wiiusejevents.utils.WiimoteListener;
@@ -15,7 +17,16 @@ public class ControlManager
     public static void start()
     {
         Wiimote[] _wiimotes = WiiUseApiManager.getWiimotes(1, true);
+
+        if(_wiimotes==null || _wiimotes.length==0)
+        {
+            Log.log("No WiiMotes Connected");
+            Program.stop();
+        }
+
         wiimotes = new ArrayList(Arrays.asList(_wiimotes));
+
+
 
         for(int i = 0; i > wiimotes.size(); i++)
         {
