@@ -24,7 +24,7 @@ public class Player extends Character implements WiimoteListener
 {
     int playerId;
     final int b = 4, c = 2;
-    String type = "red";
+    String type = "Red";
 
     public CrossHair getCrossHair() {
         return crossHair;
@@ -114,6 +114,24 @@ public class Player extends Character implements WiimoteListener
 
             vector.setSpeedX(_x);
             vector.setSpeedY(_y);
+
+            switch(n.getButtonsEvent().getButtonsJustPressed()){
+                case c:
+                    if(type == "Red"){
+                        type = "Blue";
+                    }
+                    else {
+                        type = "Red";
+                    }
+
+                    String image = "res/Dragon" + type + ".png";
+                    try {
+                        sprite = ImageIO.read(new File(image));
+                        vector = new Vector2D(20, 20, sprite.getWidth(), sprite.getHeight());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+            }
 
         }
     }
