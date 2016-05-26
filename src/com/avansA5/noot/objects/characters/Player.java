@@ -2,7 +2,10 @@ package com.avansA5.noot.objects.characters;
 
 import com.avansA5.noot.interfaces.Hittable;
 import com.avansA5.noot.managers.ControlManager;
+import com.avansA5.noot.objects.Bullet;
 import com.avansA5.noot.objects.CrossHair;
+import com.avansA5.noot.scenes.GameScene;
+import com.avansA5.noot.scenes.Scene;
 import com.avansA5.noot.types.Vector2D;
 import com.avansA5.noot.util.Log;
 import wiiusej.wiiusejevents.physicalevents.*;
@@ -20,6 +23,8 @@ import java.io.IOException;
 public class Player extends Character implements WiimoteListener
 {
     int playerId;
+    final int b = 4, c = 2;
+    String type = "red";
 
     public CrossHair getCrossHair() {
         return crossHair;
@@ -67,7 +72,13 @@ public class Player extends Character implements WiimoteListener
     @Override
     public void onButtonsEvent(WiimoteButtonsEvent wiimoteButtonsEvent)
     {
-
+        switch(wiimoteButtonsEvent.getButtonsJustPressed()){
+            case b:
+                new Bullet(type);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
