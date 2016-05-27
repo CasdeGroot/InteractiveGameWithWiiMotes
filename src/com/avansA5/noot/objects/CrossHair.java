@@ -21,6 +21,11 @@ import java.io.IOException;
  */
 public class CrossHair extends GameObject implements WiimoteListener {
 
+    public Point getLocation()
+    {
+        return location;
+    }
+
     Point location;
     BufferedImage image;
     String imageString;
@@ -28,8 +33,8 @@ public class CrossHair extends GameObject implements WiimoteListener {
     public CrossHair(int player)
     {
         Log.log("Constructing crosshair for player "+player);
-        if(player == 0){imageString = "res/CrosshairPlayer1.png";}
-        else {imageString = "res/CrosshairPlayer2.png";}
+        if(player == 0){imageString = "res/BlueCrossHair.png";}
+        else {imageString = "res/RedCrossHair.png";}
 
         try {
             image = ImageIO.read(new File(imageString));

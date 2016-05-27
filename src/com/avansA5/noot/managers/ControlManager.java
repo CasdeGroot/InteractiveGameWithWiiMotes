@@ -17,7 +17,9 @@ public class ControlManager
     public static void start()
     {
         Log.log("Starting ControlManager");
-        Wiimote[] _wiimotes = WiiUseApiManager.getWiimotes(1, true);
+
+        //TODO: single/multi
+        Wiimote[] _wiimotes = WiiUseApiManager.getWiimotes(2, true);
 
         if(_wiimotes==null || _wiimotes.length==0)
         {
@@ -35,10 +37,6 @@ public class ControlManager
                 wiimote.setLeds(true, false, false, false);
             if(i == 1)
                 wiimote.setLeds(false, true, false, false);
-            if(i == 2)
-                wiimote.setLeds(false, false, true, false);
-            if(i == 3)
-                wiimote.setLeds(false, false, false, true);
 
             wiimote.activateIRTRacking();
             wiimote.setSensorBarBelowScreen();

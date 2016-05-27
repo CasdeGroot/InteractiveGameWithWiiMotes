@@ -15,6 +15,7 @@ import wiiusej.wiiusejevents.wiiuseapievents.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,16 +34,23 @@ public class Player extends GameObject implements WiimoteListener
     State state;
 
     boolean switchLock = false;
+    private CrossHair ch;
+    private double lookAngle;
+    private double moveAngle;
+    private double magnitude;
+    private double deviation;
+    private double speed;
 
-    public Player(int player)
+    public Player(int player, CrossHair crossHair)
     {
         Log.log("Constructing player "+player);
+        this.ch = crossHair;
         ControlManager.addWiimoteListener(this, player);
         playerId = player;
 
         try {
-            redSprite = ImageIO.read(new File("res/DragonRed.png"));
-            blueSprite = ImageIO.read(new File("res/DragonBlue.png"));
+            redSprite = ImageIO.read(new File("res/PlayerRed.png"));
+            blueSprite = ImageIO.read(new File("res/PlayerBlue.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,15 +80,46 @@ public class Player extends GameObject implements WiimoteListener
     }
 
     @Override
-    public void draw(Graphics2D g2) {
-        g2.drawImage(sprite, (int)vector.getX(), (int)vector.getY(), null);
+    public void draw(Graphics2D g2)
+    {
+
+        AffineTransform at1 = new AffineTransform();
+        at1.translate((int) vector.getX() + 64, (int) vector.getY() + 64);
+        at1.rotate(lookAngle);
+        at1.translate(-((int) vector.getX() + 64), -((int) vector.getY() + 64));
+        g2.transform(at1);
+        g2.drawImage(sprite, (int) vector.getX(), (int) vector.getY(), null);
+        g2.setTransform(new AffineTransform());
     }
 
     @Override
     public void update()
     {
-        vector.setX(vector.getX()+vector.getSpeedX());
-        vector.setY(vector.getY()-vector.getSpeedY());
+        double difX = (vector.getX() + 64) - (ch.getLocation().getX() + 32);
+        double difY = (vector.getY() + 64) - (ch.getLocation().getY() + 32);
+
+        lookAngle = Math.atan2(difY, difX);
+
+
+        if (Double.isNaN(moveAngle))
+        {
+            moveAngle = 0.0;
+        }
+        if (Double.isNaN(magnitude))
+        {
+            magnitude = 0.0;
+        }
+
+        double cosX = Math.cos(Math.toRadians(moveAngle - 90));
+        double cosY = Math.sin(Math.toRadians(moveAngle - 90));
+
+        if (magnitude > deviation)
+        {
+            double moveX = cosX * magnitude * speed;
+            double moveY = cosY * magnitude * speed;
+            vector.setX(vector.getX() + moveX);
+            vector.setY(vector.getY() + moveY);
+        }
     }
 
     @Override
@@ -99,7 +138,7 @@ public class Player extends GameObject implements WiimoteListener
     public void onIrEvent(IREvent irEvent)
     {
         if(crossHair==null)
-            return;
+        return;
         crossHair.onIrEvent(irEvent);
     }
 
@@ -110,30 +149,18 @@ public class Player extends GameObject implements WiimoteListener
     }
 
     @Override
-    public void onExpansionEvent(ExpansionEvent expansionEvent)
+    public void onExpansionEvent(ExpansionEvent exp)
     {
-        NunchukEvent n;
-        n = (NunchukEvent)expansionEvent;
-        if(n.isThereNunchukJoystickEvent());
+        NunchukEvent nun = (NunchukEvent) exp;
+        ButtonsEvent but = nun.getButtonsEvent();
+        JoystickEvent joy = nun.getNunchukJoystickEvent();
+        moveAngle = (double) joy.getAngle();
+        magnitude = (double) joy.getMagnitude();
+
+
+        if (nun.getButtonsEvent().isButtonCJustReleased())
         {
-            double angle = n.getNunchukJoystickEvent().getAngle();
-            if(Double.isNaN(angle))
-                return;
-
-            double magnitude = n.getNunchukJoystickEvent().getMagnitude();
-            double deg = Math.toRadians(angle);
-
-            double _x = 8* magnitude * Math.sin(deg);
-            double _y = 8* magnitude * Math.cos(deg);
-
-            vector.setSpeedX(_x);
-            vector.setSpeedY(_y);
-
-            switch(n.getButtonsEvent().getButtonsJustPressed()){
-                case WiimoteButtons.C:
-                    toggleState();
-            }
-
+            toggleState();
         }
     }
 
@@ -144,10 +171,6 @@ public class Player extends GameObject implements WiimoteListener
             sprite = blueSprite;
         else
             sprite = redSprite;
-        switchLock = true;
-        Timer t = new Timer(5000, e -> switchLock=false);
-        t.start();
-
 
         Log.log("Changed state of player "+playerId+" to "+state.name());
     }

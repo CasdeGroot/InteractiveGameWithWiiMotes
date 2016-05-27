@@ -12,6 +12,14 @@ public class WindowManager extends JPanel
     public static WindowManager panel;
     public static JFrame frame;
 
+    public static Dimension getDimension()
+    {
+        return dimension;
+    }
+
+    static Dimension dimension = new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height-1);
+
+
     static Timer repaintTimer;
 
     public WindowManager()
@@ -27,6 +35,7 @@ public class WindowManager extends JPanel
     {
         Log.log("Starting WindowManager");
 
+        SceneManager.start();
 
         JFrame frame = new JFrame(Program.TITLE);
         frame.setUndecorated(true);
@@ -39,7 +48,7 @@ public class WindowManager extends JPanel
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height-1));
+        frame.setMinimumSize(dimension);
 
 
         frame.addKeyListener(new KeyAdapter()
@@ -55,7 +64,7 @@ public class WindowManager extends JPanel
 
         WindowManager.frame = frame;
 
-        SceneManager.start();
+
 
         Log.log("WindowManager started");
     }
@@ -69,4 +78,5 @@ public class WindowManager extends JPanel
 
         SceneManager.draw(g2);
     }
+
 }

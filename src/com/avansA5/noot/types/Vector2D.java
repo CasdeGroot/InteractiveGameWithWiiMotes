@@ -7,8 +7,9 @@ public class Vector2D
     private double width = 0;
     private double height = 0;
 
-    private double speedX = 0;
-    private double speedY = 0;
+    private double speed = 0;
+
+    private double direction = 0;
 
     public Vector2D()
     {
@@ -23,14 +24,14 @@ public class Vector2D
         this.height = height;
     }
 
-    public Vector2D(double x, double y, double width, double height, double speedX, double speedY)
+    public Vector2D(double x, double y, double width, double height, double direction, double speed)
     {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speedX = speedX;
-        this.speedY = speedY;
+        this.direction = direction;
+        this.speed = speed;
     }
 
     //region Getters and Setters
@@ -74,26 +75,15 @@ public class Vector2D
         this.height = height;
     }
 
-    public double getSpeedX()
+    public double getDirection()
     {
-        return speedX;
+        return direction;
     }
 
-    public void setSpeedX(double speedX)
+    public void setDirection(double direction)
     {
-        this.speedX = speedX;
+        this.direction = direction;
     }
-
-    public double getSpeedY()
-    {
-        return speedY;
-    }
-
-    public void setSpeedY(double speedY)
-    {
-        this.speedY = speedY;
-    }
-
     //endregion
 
     public double getX2()
@@ -102,14 +92,14 @@ public class Vector2D
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Vector2D{" +
                 "x=" + x +
                 ", y=" + y +
                 ", width=" + width +
                 ", height=" + height +
-                ", speedX=" + speedX +
-                ", speedY=" + speedY +
+                ", direction=" + direction +
                 '}';
     }
 

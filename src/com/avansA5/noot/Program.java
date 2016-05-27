@@ -6,7 +6,7 @@ import com.avansA5.noot.managers.WindowManager;
 
 public class Program
 {
-    public static final String TITLE  = "Cas & Michael";
+    public static final String TITLE  = "Fired up 0.1 pre beta release of the bleeding edge alpha";
 
     public static void start()
     {
@@ -22,7 +22,6 @@ public class Program
 
     public static void main(String[] args)
     {
-
         System.setProperty("sun.java2d.opengl", "True");
         Program.start();
     }

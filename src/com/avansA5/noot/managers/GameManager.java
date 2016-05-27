@@ -24,4 +24,11 @@ public class GameManager
         tickCount++;
         SceneManager.update();
     }
+
+    static void checkCollision()
+    {
+        //TODO streammagic
+
+        //TODO call
+    }
 }
