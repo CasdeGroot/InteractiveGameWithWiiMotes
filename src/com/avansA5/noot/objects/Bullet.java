@@ -1,8 +1,7 @@
 package com.avansA5.noot.objects;
 
-import com.avansA5.noot.interfaces.Damaging;
-import com.avansA5.noot.interfaces.Hittable;
-import com.avansA5.noot.types.Vector2D;
+import com.avansA5.noot.interfaces.GiveDamage;
+import com.avansA5.noot.types.State;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,20 +9,23 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Cas on 26/05/2016.
- */
-public class Bullet extends GameObject implements Damaging {
+public class Bullet extends GameObject implements GiveDamage
+{
     String type, image;
+    State state;
     BufferedImage bullet;
 
-    public Bullet(String type){
-        this.type = type;
-        image = "res/Bullet"+type+".png";
-        try {
-            bullet = ImageIO.read(new File(image));
-            vector = new Vector2D(50, 50, bullet.getWidth(), bullet.getHeight());
-        } catch (IOException e) {
+    public Bullet(State state){
+        this.state = state;
+        try
+        {
+            if (state == State.BLUE)
+                bullet = ImageIO.read(new File("res\\bulletBlue.png"));
+            else
+                bullet = ImageIO.read(new File("res\\bulletRed.png"));
+        }
+        catch(IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -39,7 +41,8 @@ public class Bullet extends GameObject implements Damaging {
     }
 
     @Override
-    public double getDamage(Hittable hit) {
-        return 0;
+    public int getDamage()
+    {
+        return 1;
     }
 }
