@@ -7,5 +7,5 @@ import com.avansA5.noot.types.Vector2D;
 
 public abstract class GameObject implements Drawable, Updatable
 {
-    protected Vector2D vector;
+    protected Vector2D vector = new Vector2D();
 }

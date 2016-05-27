@@ -1,6 +1,7 @@
 package com.avansA5.noot.objects;
 
 import com.avansA5.noot.managers.ControlManager;
+import com.avansA5.noot.util.Log;
 import wiiusej.wiiusejevents.physicalevents.ExpansionEvent;
 import wiiusej.wiiusejevents.physicalevents.IREvent;
 import wiiusej.wiiusejevents.physicalevents.MotionSensingEvent;
@@ -20,12 +21,13 @@ import java.io.IOException;
  */
 public class CrossHair extends GameObject implements WiimoteListener {
 
-    int x, y;
+    Point location;
     BufferedImage image;
     String imageString;
 
     public CrossHair(int player)
     {
+        Log.log("Constructing crosshair for player "+player);
         if(player == 0){imageString = "res/CrosshairPlayer1.png";}
         else {imageString = "res/CrosshairPlayer2.png";}
 
@@ -34,11 +36,15 @@ public class CrossHair extends GameObject implements WiimoteListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        location = new Point(50,50);
+
+        Log.log("Crosshair for player "+player+" constructed");
     }
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, x, y, image.getWidth()/5, image.getHeight()/5, null);
+        g2.drawImage(image, location.x, location.y, image.getWidth()/5, image.getHeight()/5, null);
     }
 
     @Override
@@ -54,8 +60,8 @@ public class CrossHair extends GameObject implements WiimoteListener {
     @Override
     public void onIrEvent(IREvent irEvent) {
 
-        x = irEvent.getAx() * 2;
-        y = irEvent.getAy() * 2;
+        location.x = irEvent.getAx() * 2;
+        location.y = irEvent.getAy() * 2;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class SceneManager
         Log.log("Starting SceneManager");
         scenes.put("GameScene", new GameScene());
         setScene("GameScene");
+        Log.log("SceneManager started");
     }
 
     static void setScene(String name)

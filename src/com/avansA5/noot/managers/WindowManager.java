@@ -57,6 +57,7 @@ public class WindowManager extends JPanel
 
         SceneManager.start();
 
+        Log.log("WindowManager started");
     }
 
     @Override

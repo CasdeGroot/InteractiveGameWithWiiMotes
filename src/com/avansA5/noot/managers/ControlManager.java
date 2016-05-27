@@ -16,11 +16,12 @@ public class ControlManager
 
     public static void start()
     {
+        Log.log("Starting ControlManager");
         Wiimote[] _wiimotes = WiiUseApiManager.getWiimotes(1, true);
 
         if(_wiimotes==null || _wiimotes.length==0)
         {
-            Log.log("No WiiMotes Connected");
+            Log.error("No WiiMotes Connected");
             Program.stop();
         }
 
@@ -28,6 +29,7 @@ public class ControlManager
 
         for(int i = 0; i < wiimotes.size(); i++)
         {
+            Log.log("Initializing wiimote "+i);
             Wiimote wiimote = wiimotes.get(i);
             if(i == 0)
                 wiimote.setLeds(true, false, false, false);
@@ -42,11 +44,14 @@ public class ControlManager
             wiimote.setSensorBarBelowScreen();
             wiimote.setIrSensitivity(0);
             wiimote.setIrSensitivity(3);
+
+            Log.log("ControlManager started");
         }
     }
 
     public static void addWiimoteListener(WiimoteListener wiimoteListener, int i)
     {
+        Log.log("Adding wiimoteListener for wiimote "+i);
         Wiimote wiimote = wiimotes.get(i);
         wiimote.addWiiMoteEventListeners(wiimoteListener);
     }

@@ -16,6 +16,7 @@ public class GameManager
         Log.log("Starting GameManager");
         updateTimer = new Timer(1000 / 60, e -> update());
         updateTimer.start();
+        Log.log("GameManager started");
     }
 
     static void update()
