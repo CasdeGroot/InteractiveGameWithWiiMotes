@@ -58,7 +58,7 @@ public class Player extends GameObject implements WiimoteListener
             state = State.BLUE;
         }
 
-        vector = new Vector2D(20, 20, sprite.getWidth(), sprite.getHeight());
+        vector = new Vector2D(500, 500, sprite.getWidth(), sprite.getHeight());
 
         Log.log("Player "+player+" constructed");
     }
@@ -139,13 +139,16 @@ public class Player extends GameObject implements WiimoteListener
 
     void toggleState()
     {
+        if(switchLock)
+            return;
+
         state = state.next();
         if(state==State.BLUE)
             sprite = blueSprite;
         else
             sprite = redSprite;
         switchLock = true;
-        Timer t = new Timer(5000, e -> switchLock=false);
+        Timer t = new Timer(700, e -> switchLock=false);
         t.start();
 
 
