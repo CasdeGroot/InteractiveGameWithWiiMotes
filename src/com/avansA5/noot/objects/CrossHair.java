@@ -11,6 +11,7 @@ import wiiusej.wiiusejevents.wiiuseapievents.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,19 +38,25 @@ public class CrossHair extends GameObject implements WiimoteListener {
         else {imageString = "res/RedCrossHair.png";}
 
         try {
-            image = ImageIO.read(new File(imageString));
+            image = ImageIO.read(new File(imageString)).getSubimage(0,0,100,100);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+
         location = new Point(50,50);
+
+        ControlManager.addWiimoteListener(this, player);
 
         Log.log("Crosshair for player "+player+" constructed");
     }
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(image, location.x, location.y, image.getWidth()/5, image.getHeight()/5, null);
+        AffineTransform transform = new AffineTransform();
+        transform.translate(location.x, location.y);
+        transform.scale(0.7, 0.7);
+        g2.drawImage(image, transform, null);
     }
 
     @Override

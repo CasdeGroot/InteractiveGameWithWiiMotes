@@ -6,18 +6,19 @@ import com.avansA5.noot.ui.UIElement;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class Scene
 {
-    ArrayList<UIElement> uiElements = new ArrayList<>();
-    ArrayList<GameObject> sprites = new ArrayList<>();
+    CopyOnWriteArrayList<UIElement> uiElements = new CopyOnWriteArrayList<>();
+    CopyOnWriteArrayList<GameObject> sprites = new CopyOnWriteArrayList<>();
 
-    public ArrayList<GameObject> getSprites()
+    public CopyOnWriteArrayList<GameObject> getSprites()
     {
         return sprites;
     }
 
-    public ArrayList<UIElement> getUiElements()
+    public CopyOnWriteArrayList<UIElement> getUiElements()
     {
         return uiElements;
     }
@@ -28,6 +29,7 @@ public abstract class Scene
 
     public void update()
     {
+        sprites.removeIf(s->s.dead);
         sprites.forEach(GameObject::update);
         uiElements.forEach(UIElement::update);
     }
@@ -36,5 +38,10 @@ public abstract class Scene
     {
         sprites.forEach(e -> e.draw(g2));
         uiElements.forEach(e -> e.draw(g2));
+    }
+
+    public void addSprite(GameObject object)
+    {
+        sprites.add(object);
     }
 }

@@ -1,6 +1,8 @@
 package com.avansA5.noot.objects.characters;
 
+import com.avansA5.noot.managers.AnimationManager;
 import com.avansA5.noot.managers.ControlManager;
+import com.avansA5.noot.objects.Animation;
 import com.avansA5.noot.objects.Bullet;
 import com.avansA5.noot.objects.CrossHair;
 import com.avansA5.noot.objects.GameObject;
@@ -8,17 +10,14 @@ import com.avansA5.noot.types.State;
 import com.avansA5.noot.types.Vector2D;
 import com.avansA5.noot.types.WiimoteButtons;
 import com.avansA5.noot.util.Log;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Transform;
 import wiiusej.wiiusejevents.physicalevents.*;
 import wiiusej.wiiusejevents.utils.WiimoteListener;
 import wiiusej.wiiusejevents.wiiuseapievents.*;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -26,10 +25,10 @@ import java.io.IOException;
  */
 public class Player extends GameObject implements WiimoteListener
 {
-    private BufferedImage sprite;
+    private Animation animation;
     CrossHair crossHair;
-    private BufferedImage redSprite;
-    private BufferedImage blueSprite;
+    private Animation redAnimation;
+    private Animation blueAnimation;
     private int playerId;
     State state;
 
@@ -39,7 +38,10 @@ public class Player extends GameObject implements WiimoteListener
     private double moveAngle;
     private double magnitude;
     private double deviation;
-    private double speed;
+    private double speed = 7;
+
+    private final int SPRITE_WIDTH = 130;
+    private final int SPRITE_HEIGHT = 120;
 
     public Player(int player, CrossHair crossHair)
     {
@@ -48,25 +50,24 @@ public class Player extends GameObject implements WiimoteListener
         ControlManager.addWiimoteListener(this, player);
         playerId = player;
 
-        try {
-            redSprite = ImageIO.read(new File("res/PlayerRed.png"));
-            blueSprite = ImageIO.read(new File("res/PlayerBlue.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        redAnimation = new Animation("res/PlayerRed.png", 1, 7, 130, 120,25);
+        AnimationManager.addAnimation(redAnimation);
+        blueAnimation = new Animation("res/PlayerBlue.png", 1, 7, 130, 120,25);
+        AnimationManager.addAnimation(blueAnimation);
 
         if(player==0)
         {
-            sprite = redSprite;
+            animation = redAnimation;
             state = State.RED;
         }
         else
         {
-            sprite = blueSprite;
+            animation = blueAnimation;
             state = State.BLUE;
         }
 
-        vector = new Vector2D(20, 20, sprite.getWidth(), sprite.getHeight());
+        vector = new Vector2D(200, 200, animation.getCurrentImage().getWidth(), animation.getCurrentImage().getHeight());
 
         Log.log("Player "+player+" constructed");
     }
@@ -83,13 +84,12 @@ public class Player extends GameObject implements WiimoteListener
     public void draw(Graphics2D g2)
     {
 
-        AffineTransform at1 = new AffineTransform();
-        at1.translate((int) vector.getX() + 64, (int) vector.getY() + 64);
-        at1.rotate(lookAngle);
-        at1.translate(-((int) vector.getX() + 64), -((int) vector.getY() + 64));
-        g2.transform(at1);
-        g2.drawImage(sprite, (int) vector.getX(), (int) vector.getY(), null);
-        g2.setTransform(new AffineTransform());
+        AffineTransform tr = new AffineTransform();
+        tr.translate(vector.getX() + SPRITE_WIDTH/2, vector.getY() + SPRITE_HEIGHT/2);
+        tr.rotate(lookAngle - (Math.PI/2));
+        tr.translate(-vector.getX() - SPRITE_WIDTH/2, -vector.getY() - SPRITE_HEIGHT/2);
+        tr.translate(vector.getX(), vector.getY());
+        g2.drawImage(animation.getCurrentImage(), tr, null);
     }
 
     @Override
@@ -125,9 +125,9 @@ public class Player extends GameObject implements WiimoteListener
     @Override
     public void onButtonsEvent(WiimoteButtonsEvent wiimoteButtonsEvent)
     {
-        switch(wiimoteButtonsEvent.getButtonsJustPressed()){
+        switch(wiimoteButtonsEvent.getButtonsJustReleased()){
             case WiimoteButtons.B:
-                new Bullet(state);
+                new Bullet(state, new Vector2D(vector.getX()+65, vector.getY()+60), new Vector2D(ch.getLocation().getX(), ch.getLocation().getY()));
                 break;
             default:
                 break;
@@ -168,9 +168,9 @@ public class Player extends GameObject implements WiimoteListener
     {
         state = state.next();
         if(state==State.BLUE)
-            sprite = blueSprite;
+            animation = blueAnimation;
         else
-            sprite = redSprite;
+            animation = redAnimation;
 
         Log.log("Changed state of player "+playerId+" to "+state.name());
     }

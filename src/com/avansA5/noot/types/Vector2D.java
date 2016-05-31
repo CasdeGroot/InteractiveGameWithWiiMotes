@@ -1,5 +1,7 @@
 package com.avansA5.noot.types;
 
+import com.sun.istack.internal.Nullable;
+
 public class Vector2D
 {
     private double x = 0;
@@ -16,6 +18,14 @@ public class Vector2D
 
     }
 
+    public Vector2D(double x, double y)
+    {
+        this.x = x;
+        this.y = y;
+        this.width = 0;
+        this.height = 0;
+    }
+
     public Vector2D(double x, double y, double width, double height)
     {
         this.x = x;
@@ -23,6 +33,7 @@ public class Vector2D
         this.width = width;
         this.height = height;
     }
+
 
     public Vector2D(double x, double y, double width, double height, double direction, double speed)
     {
@@ -85,6 +96,16 @@ public class Vector2D
         this.direction = direction;
     }
     //endregion
+
+    public double getSpeed()
+    {
+        return speed;
+    }
+
+    public void setSpeed(double speed)
+    {
+        this.speed = speed;
+    }
 
     public double getX2()
     {

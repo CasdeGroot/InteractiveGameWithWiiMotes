@@ -26,7 +26,7 @@ public class PlayerPanel extends GameObject
     private String playerNr = "";
     private String difficulty = "";
     private int highscore = 0;
-    private int heartCount = 0;
+    private int heartCount = 3;
 
     private final int PANEL_WIDTH = 390;
     private final int PANEL_HEIGHT = 1080;
@@ -142,8 +142,6 @@ public class PlayerPanel extends GameObject
     {
         AffineTransform transform = new AffineTransform();
 
-
-
         if(playerId==1)
             transform.translate(WindowManager.getDimension().getWidth()-390*scale, 0);
 
@@ -165,7 +163,10 @@ public class PlayerPanel extends GameObject
 
         for(int i = 2; i > heartCount-1; i--)
         {
-            g2.drawImage(blackHeart,(int) heartpos.get(i).getX(),(int) heartpos.get(i).getY(), null);
+            AffineTransform tr = new AffineTransform();
+            tr.translate((int) heartpos.get(i).getX(),(int) heartpos.get(i).getY());
+            tr.scale(scale,scale);
+            g2.drawImage(blackHeart,tr, null);
         }
     }
 

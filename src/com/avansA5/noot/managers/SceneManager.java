@@ -42,4 +42,9 @@ public class SceneManager
             currentScene.update();
     }
 
+    public static Scene getCurrentScene()
+    {
+        return currentScene;
+    }
+
 }

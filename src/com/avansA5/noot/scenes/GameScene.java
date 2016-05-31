@@ -24,9 +24,10 @@ public class GameScene extends Scene {
     @Override
     public void draw(Graphics2D g2)
     {
-        super.draw(g2);
         for(PlayerPanel p : panels)
             p.draw(g2);
+
+        super.draw(g2);
     }
 
     @Override

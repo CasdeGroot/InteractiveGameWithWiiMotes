@@ -17,15 +17,17 @@ public class Animation implements Updatable
     private int maxSprites = 0;
     private int currentSprite = 0;
 
-    private int pause = 30;
+    private double animationTimer;
+    private long oldTime = 0;
 
-    public Animation(String tilesheetPath, int rows, int columns)
+    public Animation(String tilesheetPath, int rows, int columns, int width, int height, int updatesPerSecond)
     {
         maxSprites = rows * columns;
-        createSpriteList(tilesheetPath, rows, columns);
+        animationTimer = 1000/updatesPerSecond;
+        createSpriteList(tilesheetPath, rows, columns, width, height);
     }
 
-    private void createSpriteList(String tileSheetPath, int rows, int columns)
+    private void createSpriteList(String tileSheetPath, int rows, int columns, int width, int height)
     {
         try
         {
@@ -35,7 +37,7 @@ public class Animation implements Updatable
             {
                 for (int c = 0; c < columns; c++)
                 {
-                    BufferedImage tempImage = tilesheetImage.getSubimage(c * 64, r * 64, 64, 64);
+                    BufferedImage tempImage = tilesheetImage.getSubimage(c * width, r * height, width, height);
                     spriteList.add(tempImage);
                 }
             }
@@ -53,8 +55,13 @@ public class Animation implements Updatable
     @Override
     public void update()
     {
-        currentSprite++;
-        if (currentSprite >= maxSprites)
-            currentSprite = 0;
+        long newTime = System.currentTimeMillis();
+        if(newTime - oldTime > animationTimer)
+        {
+            oldTime = newTime;
+            currentSprite++;
+            if (currentSprite >= maxSprites)
+                currentSprite = 0;
+        }
     }
 }
